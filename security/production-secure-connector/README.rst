@@ -415,6 +415,9 @@ through a local port forwarding like below:
 The ``testadmin`` user (``testadmin`` password) has the ``SystemAdmin`` role granted and will have access to the
 cluster and broker information.
 
+
+Open the topic view for pageviews and review the incoming messages.
+
 =========
 Tear down
 =========
