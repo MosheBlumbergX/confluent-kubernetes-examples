@@ -1,0 +1,17 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: ConfluentRolebinding
+metadata:
+  name: connect-1
+  namespace: confluent
+spec:
+  principal:
+    name: connect
+    type: user
+  resourcePatterns:
+  - name: confluent.connect
+    patternType: LITERAL
+    resourceType: Group
+  - name: pageviews
+    patternType: LITERAL
+    resourceType: Topic
+  role: ResourceOwner
