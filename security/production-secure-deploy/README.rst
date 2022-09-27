@@ -54,55 +54,6 @@ Note that it is assumed that your Kubernetes cluster has a ``confluent`` namespa
      
      kubectl get pods --namespace confluent
 
-===============
-Deploy OpenLDAP
-===============
-
-This repo includes a Helm chart for `OpenLdap
-<https://github.com/osixia/docker-openldap>`__. The chart ``values.yaml``
-includes the set of principal definitions that Confluent Platform needs for
-RBAC.
-
-#. Deploy OpenLdap
-
-   ::
-
-     helm upgrade --install -f $TUTORIAL_HOME/../../assets/openldap/ldaps-rbac.yaml test-ldap $TUTORIAL_HOME/../../assets/openldap --namespace confluent
-
-#. Validate that OpenLDAP is running:  
-   
-   ::
-
-     kubectl get pods --namespace confluent
-
-#. Log in to the LDAP pod:
-
-   ::
-
-     kubectl --namespace confluent exec -it ldap-0 -- bash
-
-#. Run the LDAP search command:
-
-   ::
-
-     ldapsearch -LLL -x -H ldap://ldap.confluent.svc.cluster.local:389 -b 'dc=test,dc=com' -D "cn=mds,dc=test,dc=com" -w 'Developer!'
-
-#. Exit out of the LDAP pod:
-
-   ::
-   
-     exit 
-     
-#.  Create TLS secert for the ldaps  
-
-   ::
-
-      kubectl create secret generic ldap-tls \
-    --from-file=fullchain.pem=$TUTORIAL_HOME/openldapssl/server.pem \
-    --from-file=cacerts.pem=$TUTORIAL_HOME/openldapssl/ca.pem \
-    --from-file=privkey.pem=$TUTORIAL_HOME/openldapssl/server-key.pem
-
-
 ============================
 Deploy configuration secrets
 ============================
@@ -207,6 +158,52 @@ Provide RBAC principal credentials
        --from-file=bearer.txt=$TUTORIAL_HOME/bearer.txt \
        --from-file=basic.txt=$TUTORIAL_HOME/bearer.txt \
        --namespace confluent
+
+===============
+Deploy OpenLDAP
+===============
+
+This repo includes a Helm chart for `OpenLdap
+<https://github.com/osixia/docker-openldap>`__. The chart ``values.yaml``
+includes the set of principal definitions that Confluent Platform needs for
+RBAC.
+
+#. Deploy OpenLdap
+
+   ::
+
+     helm upgrade --install -f $TUTORIAL_HOME/../../assets/openldap/ldaps-rbac.yaml test-ldap $TUTORIAL_HOME/../../assets/openldap --namespace confluent
+     helm upgrade --install test-ldap \
+     $TUTORIAL_HOME/../../assets/openldap \
+     --set-file tls.fullchain=${PWD}/assets/certs/generated/server.pem  \
+     --set-file tls.privkey=${PWD}/assets/certs/generated/server-key.pem \
+     --set-file tls.cacerts=${PWD}/assets/certs/generated/ca.pem \
+     --namespace confluent
+
+#. Validate that OpenLDAP is running:  
+   
+   ::
+
+     kubectl get pods --namespace confluent
+
+#. Log in to the LDAP pod:
+
+   ::
+
+     kubectl --namespace confluent exec -it ldap-0 -- bash
+
+#. Run the LDAP search command:
+
+   ::
+
+      ldapsearch -LLL -x -H ldaps://ldap.confluent.svc.cluster.local:636 -b 'dc=test,dc=com' -D "cn=mds,dc=test,dc=com" -w 'Developer!'
+
+#. Exit out of the LDAP pod:
+
+   ::
+   
+     exit 
+     
 
 ============================
 Configure Confluent Platform
