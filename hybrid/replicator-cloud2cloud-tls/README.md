@@ -100,7 +100,7 @@ kubectl create secret generic connect-tls-replicator \
   --from-file=fullchain.pem=$TUTORIAL_HOME/../../assets/certs/generated/server.pem \
   --from-file=cacerts.pem=$TUTORIAL_HOME/../../assets/certs/generated/ca.pem \
   --from-file=privkey.pem=$TUTORIAL_HOME/../../assets/certs/generated/server-key.pem \
-  --namespace confluent
+  --namespace destination
 ```
 
 ```
