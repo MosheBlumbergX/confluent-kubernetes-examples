@@ -11,15 +11,12 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - kafka.mydomain.example
-        - b0.mydomain.example
-        - b1.mydomain.example
-        - b2.mydomain.example
-        - controlcenter.mydomain.example
-        - ksqldb.mydomain.example
-        - connect.mydomain.example
+        - kafka.$DOMAIN
+        - b0.$DOMAIN
+        - b1.$DOMAIN
+        - b2.$DOMAIN
   rules:
-    - host: kafka.mydomain.example
+    - host: kafka.$DOMAIN
       http:
         paths:
           - path: /
@@ -29,7 +26,7 @@ spec:
                 name: kafka-bootstrap
                 port: 
                   number: 9092
-    - host: b0.mydomain.example
+    - host: b0.$DOMAIN
       http:
         paths:
           - path: /
@@ -39,7 +36,7 @@ spec:
                 name: kafka-0-internal
                 port:
                   number: 9092
-    - host: b1.mydomain.example
+    - host: b1.$DOMAIN
       http:
         paths:
           - path: /
@@ -49,7 +46,7 @@ spec:
                 name: kafka-1-internal
                 port: 
                   number: 9092
-    - host: b2.mydomain.example
+    - host: b2.$DOMAIN
       http:
         paths:
           - path: /
@@ -59,33 +56,3 @@ spec:
                 name: kafka-2-internal
                 port: 
                   number: 9092
-    - host: controlcenter.mydomain.example
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: controlcenter-0-internal
-                port: 
-                  number: 9021
-    - host: ksqldb.mydomain.example
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: ksqldb-bootstrap
-                port: 
-                  number: 8088
-    - host: connect.mydomain.example
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: connect-bootstrap
-                port: 
-                  number: 8083
