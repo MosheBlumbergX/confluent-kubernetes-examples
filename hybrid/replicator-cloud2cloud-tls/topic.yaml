@@ -1,0 +1,15 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: KafkaTopic
+metadata:
+  name: source-topic
+  namespace: confluent
+spec:
+  replicas: 3
+  partitionCount: 4
+  kafkaRest:
+    endpoint: https://<source-ccloud-endpoint>:443
+    kafkaClusterID: <cluster-id>
+    authentication:
+      type: basic
+      basic:
+        secretRef: source-cloud-plain

@@ -29,7 +29,7 @@ spec:
         ignoreTrustStoreConfig: true 
     connect:
     - name: connect-dev
-      url:  https://replicator.destination.svc.cluster.local:8083
+      url:  https://connect.destination.svc.cluster.local:8083
       tls:
         enabled: true
         secretRef: connect-tls-replicator

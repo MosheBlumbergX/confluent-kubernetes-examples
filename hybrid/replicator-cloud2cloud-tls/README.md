@@ -178,6 +178,11 @@ Verify that the pods has completed:
 kubectl get pods --namespace destination
 ```  
 
+#### You can also use the declarative method  
+
+```
+kubectl -n destination apply -f $TUTORIAL_HOME/topic.yaml
+```
 
 
 ### Deploy a producer application that produces messages to the topic `source-topic`:
@@ -295,7 +300,7 @@ kubectl --namespace destination delete -f $TUTORIAL_HOME/components-destination.
 kubectl --namespace destination delete -f $TUTORIAL_HOME/controlcenter.yaml         
 kubectl --namespace destination delete -f $TUTORIAL_HOME/cloudtopic.yaml
 kubectl --namespace destination delete -f $TUTORIAL_HOME/cloudproducer.yaml
-kubectl --namespace destination delete secrets destination-cloud-plain control-center-user source-kafka-client-config-secure source-cloud-plain
+kubectl --namespace destination delete secrets destination-cloud-plain control-center-user source-kafka-client-config-secure source-cloud-plain connect-tls-replicator
 helm --namespace destination delete confluent-operator
 ```
 
