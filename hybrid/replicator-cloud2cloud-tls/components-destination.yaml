@@ -1,0 +1,32 @@
+apiVersion: platform.confluent.io/v1beta1
+# Confluent Replicator is built as a connector, and so will use the `Connect` CRD.
+kind: Connect
+metadata:
+  name: connect
+  namespace: destination
+spec:
+  replicas: 1
+  image:
+    application: confluentinc/cp-server-connect:7.3.0
+    init: confluentinc/confluent-init-container:2.5.0
+  build:
+    type: onDemand
+    onDemand:
+      plugins:
+        locationType: confluentHub
+        confluentHub:
+          - name: kafka-connect-replicator
+            owner: confluentinc
+            version: 7.3.0
+  dependencies:
+    kafka:
+      bootstrapEndpoint: pkc-l6wr6.europe-west2.gcp.confluent.cloud:9092
+      authentication:
+        type: plain
+        jaasConfig:
+          secretRef: destination-cloud-plain
+      tls:
+        enabled: true
+        ignoreTrustStoreConfig: true 
+  tls:
+    secretRef: connect-tls-replicator
