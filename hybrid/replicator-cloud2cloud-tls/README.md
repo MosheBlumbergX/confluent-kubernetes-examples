@@ -49,12 +49,26 @@ Search and replace the following:
 ```
 <destination-ccloud-key> - with your destination Confluent Cloud Key
 <destination-ccloud-pass> - with your destination Confluent Cloud pass
-pkc-l6wr6.europe-west2.gcp.confluent.cloud:9092 - with your destination Confluent Cloud Cluster endpoint
+<destination-ccloud-endpoint:9092> - with your destination Confluent Cloud Cluster endpoint
 
 <source-ccloud-key> - with your source Confluent Cloud Key
 <source-ccloud-pass> - with your source Confluent Cloud pass
 <source-ccloud-endpoint:9092> - with your source Confluent Cloud Cluster endpoint
 ```
+
+
+You can use a commands like these, or just use the editor. 
+```
+sed -i '' -e 's/destination-ccloud-key/mylongkeyhere/g' $(find $TUTORIAL_HOME -type f)
+sed -i '' -e 's/<destination-ccloud-pass>/mylongpasshere/g' $(find $TUTORIAL_HOME -type f)
+sed -i '' -e 's/<destination-ccloud-endpoint:9092>/somedomainhere.aws.confluent.cloud:9092/g' $(find $TUTORIAL_HOME -type f)
+
+sed -i '' -e 's/source-ccloud-key/mylongkeyhere/g' $(find $TUTORIAL_HOME -type f)
+sed -i '' -e 's/<source-ccloud-pass>/mylongpasshere/g' $(find $TUTORIAL_HOME -type f)
+sed -i '' -e 's/<source-ccloud-endpoint:9092>/somedomainhere.aws.confluent.cloud:9092/g' $(find $TUTORIAL_HOME -type f)
+
+```
+
 ## Create Secrets 
 
 Create a Kubernetes secret object for the **destination** Confluent Cloud Kafka access.  
@@ -212,11 +226,11 @@ cat <<EOF > /tmp/replicator.json
      "connector.class":  "io.confluent.connect.replicator.ReplicatorSourceConnector",
      "confluent.license": "",
      "confluent.topic.replication.factor": "3",
-     "confluent.topic.bootstrap.servers": "pkc-l6wr6.europe-west2.gcp.confluent.cloud:9092",
+     "confluent.topic.bootstrap.servers": "<destination-ccloud-endpoint:9092>",
      "confluent.topic.sasl.jaas.config": "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"<destination-ccloud-key>\" password=\"<destination-ccloud-pass>\";",
      "confluent.topic.sasl.mechanism": "PLAIN",
      "confluent.topic.security.protocol": "SASL_SSL",
-     "dest.kafka.bootstrap.servers": "pkc-l6wr6.europe-west2.gcp.confluent.cloud:9092",
+     "dest.kafka.bootstrap.servers": "<destination-ccloud-endpoint:9092>",
      "dest.kafka.sasl.jaas.config": "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"<destination-ccloud-key>\" password=\"<destination-ccloud-pass>\";",
      "dest.kafka.sasl.mechanism": "PLAIN",
      "dest.kafka.security.protocol": "SASL_SSL",

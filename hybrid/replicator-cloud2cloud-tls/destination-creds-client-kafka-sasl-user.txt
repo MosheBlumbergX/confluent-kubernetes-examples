@@ -1,2 +1,2 @@
-username=<destination-ccloud-key>
+username=<5XO7BVKLB45OTBTP>
 password=<destination-ccloud-pass>

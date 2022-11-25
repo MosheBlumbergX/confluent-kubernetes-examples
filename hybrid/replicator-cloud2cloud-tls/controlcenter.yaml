@@ -19,7 +19,7 @@ spec:
       - confluent.metrics.topic.max.message.bytes=8388608  
   dependencies:
     kafka:
-      bootstrapEndpoint: pkc-l6wr6.europe-west2.gcp.confluent.cloud:9092
+      bootstrapEndpoint: <destination-ccloud-endpoint:9092>
       authentication:
         type: plain
         jaasConfig:
