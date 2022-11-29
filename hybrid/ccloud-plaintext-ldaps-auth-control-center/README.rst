@@ -159,38 +159,6 @@ Deploy Confluent Platform
 Validate
 ========
 
-Deploy producer application
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Now that we've got the infrastructure set up, let's deploy the producer client
-app.
-
-The producer app is packaged and deployed as a pod on Kubernetes. The required
-topic is defined as a KafkaTopic custom resource in
-``$TUTORIAL_HOME/secure-producer-app-data.yaml``.
-
-The ``$TUTORIAL_HOME/secure-producer-app-data.yaml`` defines the ``elastic-0``
-topic as follows:
-
-::
-
-  apiVersion: platform.confluent.io/v1beta1
-  kind: KafkaTopic
-  metadata:
-    name: elastic-0
-    namespace: confluent
-  spec:
-    replicas: 1
-    partitionCount: 1
-    configs:
-      cleanup.policy: "delete"
-      
-Deploy the producer app:
-
-::
-   
-  kubectl apply -f $TUTORIAL_HOME/producer-app-data.yaml --namespace=confluent
-
 Validate in Control Center
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -290,7 +258,7 @@ Shut down Confluent Platform and the data:
 
 ::
 
-  kubectl delete secret ldaps-tls --namespace=confluent
+  kubectl delete secret ldaps-tls-ccloud --namespace=confluent
 
 ::
 
@@ -303,4 +271,3 @@ Troubleshooting
 :: 
 
   openssl s_client -connect ldap.confluent.svc.cluster.local:636
-  ldapsearch -H ldaps://dc.oholics.net:636 -b “DC=oholics,DC=net” -D “CN=svc-LDAPBind,OU=ServiceAccounts,DC=oholics,DC=net” -w “<MyPass>”

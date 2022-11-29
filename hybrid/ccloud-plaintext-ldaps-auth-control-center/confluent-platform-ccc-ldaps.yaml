@@ -76,4 +76,4 @@ spec:
         ignoreTrustStoreConfig: true 
     connect:
     - name: connect
-      url: http://connect.confluent.svc.cluster.local:8083
+      url: http://moshevtwoconnect.confluent.svc.cluster.local:8083
