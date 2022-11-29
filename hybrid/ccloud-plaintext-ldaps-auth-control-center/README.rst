@@ -35,7 +35,7 @@ the tutorial files:
 ::
    
   export TUTORIAL_HOME=<Tutorial directory>/hybrid/ccloud-plaintext-ldaps-auth-control-center
-  
+
 ===============================
 Deploy Confluent for Kubernetes
 ===============================
@@ -117,44 +117,24 @@ Note that it is assumed that your Kubernetes cluster has a ``confluent`` namespa
     --from-file=ldap.txt=$TUTORIAL_HOME/openldapssl/ldapbinds.txt \
     --namespace confluent
 
+Provide authentication credentials
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-========================================
-Review Confluent Platform configurations
-========================================
+Confluent Cloud provides you an API key for both Kafka.
+Configure Confluent For Kubernetes to use the API.
 
-You install Confluent Platform components as custom resources (CRs). 
+Create a Kubernetes secret object for Confluent Cloud Kafka access.
+This secret object contains file based properties. These files are in the
+format that each respective Confluent component requires for authentication
+credentials. 
 
-You can configure all Confluent Platform components as custom resources. In this
-tutorial, you will configure all components in a single file and deploy all
-components with one ``kubectl apply`` command.
-
-The entire Confluent Platform is configured in one configuration file:
-``$TUTORIAL_HOME/confluent-platform-ccc-ldaps.yaml``
-
-In this configuration file, there is a custom Resource configuration spec for
-each Confluent Platform component - replicas, image to use, resource
-allocations.
-
-For example, the Kafka section of the file is as follows:
+Edit the file `creds-client-kafka-sasl-user.txt` to hold the <api-key> / <api-secret>.  
 
 ::
-  
-  ---
-  apiVersion: platform.confluent.io/v1beta1
-  kind: Kafka
-  metadata:
-    name: kafka
-    namespace: operator
-  spec:
-    replicas: 3
-    image:
-      application: confluentinc/cp-server:7.3.0
-      init: confluentinc/confluent-init-container:2.5.0
-    dataVolumeCapacity: 10Gi
-    metricReporter:
-      enabled: true
-  ---
-  
+
+  kubectl create secret generic cloud-plain \
+  --from-file=plain.txt=$TUTORIAL_HOME/creds-client-kafka-sasl-user.txt
+
 =========================
 Deploy Confluent Platform
 =========================
