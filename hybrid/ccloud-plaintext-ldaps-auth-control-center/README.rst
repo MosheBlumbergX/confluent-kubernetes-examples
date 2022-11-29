@@ -182,59 +182,14 @@ Use Control Center to monitor the Confluent Platform, and see the created topic 
     Full Control: Username:james Password:james-secret  
 
     Restricted Control: Username:alice Password:alice-secret
-
-#. Check that the ``elastic-0`` topic was created and that messages are being produced to the topic.
-
-
-Check external listener
-^^^^^^^^^^^^^^^^^^^^^^^
-
-We've configured ldap authentication on the external listener of Kafka. 
-To validate it you can open a bash to one of the pods and try to connect to the `9092` port:  
-
-::
-
-  kubectl --namespace confluent exec -it kafka-0 -- bash
-
-  cat <<EOF > /tmp/kafka.properties
-  bootstrap.servers=kafka.confluent.svc.cluster.local:9092
-  sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required username=kafka password=kafka-secret;
-  sasl.mechanism=PLAIN
-  security.protocol=SASL_PLAINTEXT
-  EOF
-
-  kafka-topics --bootstrap-server localhost:9092 --command-config /tmp/kafka.properties --list
-
-Deploy producer application external listener
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The producer app is packaged and deployed as a pod on Kubernetes. The required
-topic is defined as a KafkaTopic custom resource in
-``$TUTORIAL_HOME/producer-app-data-ldaps.yaml``.
-
-
-      
-Deploy the producer app and check Control Center topic ldaps-producer-test-0: 
-
-::
-   
-  kubectl apply -f $TUTORIAL_HOME/producer-app-data-ldaps.yaml --namespace=confluent
-
-
+    
+    
 
 =========
 Tear Down
 =========
 
 Shut down Confluent Platform and the data:
-
-::
-
-  kubectl delete -f $TUTORIAL_HOME/producer-app-data-ldaps.yaml --namespace=confluent
-  
-::
-
-  kubectl delete -f $TUTORIAL_HOME/producer-app-data.yaml --namespace=confluent
 
 ::
 
@@ -263,6 +218,11 @@ Shut down Confluent Platform and the data:
 ::
 
   kubectl delete secret ldaps-user --namespace=confluent
+
+
+::
+
+  kubectl delete secret cloud-plain --namespace=confluent
 
 ===============
 Troubleshooting
