@@ -1,14 +1,12 @@
 Deploy Confluent Platform
 =========================
 
-In this workflow scenario, you'll set up Control Center with LDAPs (ldap over TLS) based authentication to monitor and connect to a Confluent Platform with no security.
-
+In this workflow scenario, you'll set up Control Center with LDAPs (ldap over TLS) based authentication to monitor and connect to a Confluent Cloud Platform and local Connect CR.  
 The goal for this scenario is for you to:
 
-* Configure LDAP with TLS server for Control Center authentication (no RBAC).
-* Quickly set up the complete Confluent Platform on the Kubernetes.
-* Configure ldap authentication on the external listener (9092)
-* Configure a producer to generate sample data.
+* Configure LDAP with TLS server for Control Center authentication (no RBAC)
+* Configure Connect worker with Confluent Cloud
+* Configure Control Center with ldaps to monitor Confluent Cloud and local Connect worker
 
 
 To complete this scenario, you'll follow these steps:
@@ -19,9 +17,7 @@ To complete this scenario, you'll follow these steps:
 
 #. Deploy LDAPS server
 
-#. Deploy Confluent Platform.
-
-#. Deploy the Producer application.
+#. Deploy Connect and Control Center.
 
 #. Tear down Confluent Platform.
 
@@ -136,6 +132,8 @@ Edit the file `creds-client-kafka-sasl-user.txt` to hold the <api-key> / <api-se
 =========================
 Deploy Confluent Platform
 =========================
+
+Replace `<cloudKafka_url>:9092` with your cluster bootstrap in the `confluent-platform-ccc-ldaps.yaml` file.  
 
 #. Deploy Confluent Platform with the above configuration:
 
