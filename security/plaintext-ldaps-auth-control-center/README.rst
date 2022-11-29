@@ -325,4 +325,3 @@ Troubleshooting
 :: 
 
   openssl s_client -connect ldap.confluent.svc.cluster.local:636
-  ldapsearch -H ldaps://dc.oholics.net:636 -b “DC=oholics,DC=net” -D “CN=svc-LDAPBind,OU=ServiceAccounts,DC=oholics,DC=net” -w “<MyPass>”
