@@ -124,9 +124,7 @@ Confluent Cloud provides you an API key for both Kafka.
 Configure Confluent For Kubernetes to use the API.
 
 Create a Kubernetes secret object for Confluent Cloud Kafka access.
-This secret object contains file based properties. These files are in the
-format that each respective Confluent component requires for authentication
-credentials. 
+This secret object contains file based properties. These files are in the format that each respective Confluent component requires for authentication credentials. 
 
 Edit the file `creds-client-kafka-sasl-user.txt` to hold the <api-key> / <api-secret>.  
 
