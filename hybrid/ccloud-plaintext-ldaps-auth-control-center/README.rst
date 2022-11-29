@@ -72,7 +72,7 @@ RBAC.
 
    ::
 
-     helm upgrade --install -f $TUTORIAL_HOME/openldapssl/ldaps.yaml test-ldap $TUTORIAL_HOME/../../assets/openldap --namespace confluent
+     helm upgrade --install -f $TUTORIAL_HOME/ldapswithccloudcerts/ldaps.yaml test-ldap $TUTORIAL_HOME/../../assets/openldap --namespace confluent
 
 Note that it is assumed that your Kubernetes cluster has a ``confluent`` namespace available, otherwise you can create it by running ``kubectl create namespace confluent``. 
 
@@ -104,9 +104,9 @@ Note that it is assumed that your Kubernetes cluster has a ``confluent`` namespa
 
    ::
    
-    kubectl create secret generic ldaps-tls \
-    --from-file=truststore.jks=$TUTORIAL_HOME/openldapssl/truststore.jks \
-    --from-file=jksPassword.txt=$TUTORIAL_HOME/openldapssl/jksPassword.txt \
+    kubectl create secret generic ldaps-tls-ccloud \
+    --from-file=truststore.jks=$TUTORIAL_HOME/ldapswithccloudcerts/truststore.jks \
+    --from-file=jksPassword.txt=$TUTORIAL_HOME/ldapswithccloudcerts/jksPassword.txt \
     --namespace confluent
 
 #. Create Control Center `bindDn` and `bindPassword`
@@ -114,7 +114,7 @@ Note that it is assumed that your Kubernetes cluster has a ``confluent`` namespa
   ::
 
     kubectl create secret generic ldaps-user \
-    --from-file=ldap.txt=$TUTORIAL_HOME/openldapssl/ldapbinds.txt \
+    --from-file=ldap.txt=$TUTORIAL_HOME/ldapswithccloudcerts/ldapbinds.txt \
     --namespace confluent
 
 Provide authentication credentials
