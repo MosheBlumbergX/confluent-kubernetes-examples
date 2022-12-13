@@ -1,3 +1,4 @@
+```
 Deploy Confluent Platform
 =========================
 
@@ -60,8 +61,6 @@ Deploy Confluent for Kubernetes
      
      kubectl get pods
 
-
-```
 
 kubectl apply -f $TUTORIAL_HOME/sftp-server-deployment.yaml
 
