@@ -105,7 +105,7 @@ exit
         "topics": "test_sftp_sink",
                "tasks.max": "1",
                "connector.class": "io.confluent.connect.sftp.SftpCsvSourceConnector",
-               "cleanup.policy":"NONE",
+               "cleanup.policy":"MOVE",
                "behavior.on.error":"IGNORE",
                "input.path": "/home/foo/upload/input",
                "error.path": "/home/foo/upload/error",
@@ -132,4 +132,12 @@ $ curl http://localhost:8083/connectors/sftp-source-csv/status
 
 % kubectl --namespace=confluent exec -it kafka-0 -- bash                     
  kafka-console-consumer --from-beginning -bootstrap-server localhost:9071 --topic sftp-testing-topic
+```
+
+
+To add more data if needed:  
+
+in the ftp pod:  
+```
+root@sftp-server:/# for i in {1..4505}; do echo $i,Debby,Brea,dbrea1@icio.us,Female,153.239.187.49,2018-10-21T12:27:12Z,14693.49,CZ,#73893a >> /chroot/home/foo/upload/input/csv-sftp-source.csv; done
 ```
