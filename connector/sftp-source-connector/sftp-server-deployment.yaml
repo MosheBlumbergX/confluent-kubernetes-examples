@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: sftp-server
+  name: sftp-server
+spec:
+  ports:
+    - name: "2222"
+      port: 2222
+      targetPort: 22
+  selector:
+    io.kompose.service: sftp-server
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.1 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: sftp-server
+  name: sftp-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: sftp-server
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.1 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: sftp-server
+    spec:
+      containers:
+        - args:
+            - foo:pass:::upload
+          image: vdesabou/sftp
+          name: sftp-server
+          ports:
+            - containerPort: 22
+          resources: {}
+      hostname: sftp-server
+      restartPolicy: Always
