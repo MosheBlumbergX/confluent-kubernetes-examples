@@ -1,0 +1,22 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: ClusterLink
+metadata:
+  name: clusterlinkus-aheadlesschicken
+  namespace: destination
+spec:
+  destinationKafkaCluster:
+    kafkaRestClassRef:
+      name: destination-kafka-rest
+      namespace: destination
+  sourceKafkaCluster:
+    bootstrapEndpoint: kafka.source.svc.cluster.local:9071
+    kafkaRestClassRef:
+      name: source-kafka-rest
+      namespace: source
+  mirrorTopicOptions:
+    autoCreateTopics: 
+      enabled: true
+      topicFilters: 
+        - filterType: INCLUDE
+          name: aheadless
+          patternType: PREFIXED
