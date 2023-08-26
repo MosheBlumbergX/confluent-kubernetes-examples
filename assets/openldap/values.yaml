@@ -133,6 +133,8 @@ ldifs:
     gecos: james
     loginShell: /bin/bash
     homeDirectory: /home/james
+    title: cn=c3users,ou=groups,dc=test,dc=com
+
   14_addgroup.ldif:  |-
     dn: cn=readonlyusers,ou=groups,{{ LDAP_BASE_DN }}
     changetype: modify
@@ -150,3 +152,14 @@ ldifs:
     objectClass: simpleSecurityObject
     objectClass: organizationalRole
     cn: devuser
+  16_c3-ldapgroup.ldif: |-
+    dn: cn=c3,ou=users,dc=test,dc=com
+    objectClass: inetOrgPerson
+    objectClass: organizationalPerson
+    objectClass: person
+    objectClass: top
+    cn: c3
+    sn: c3
+    ou: Users
+    userPassword: c3-secret
+
