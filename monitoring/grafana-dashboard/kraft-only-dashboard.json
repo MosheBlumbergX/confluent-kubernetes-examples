@@ -139,7 +139,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "count(kafka_controller_kafkacontroller_value{name=\"ActiveBrokerCount\",namespace=~\"$namespace\",app=~\"$component_name\",platform_confluent_io_type=~\"$controller_type\"})",
+          "expr": "count(kafka_controller_kafkacontroller_value{name=\"ActiveBrokerCount\",namespace=~\"$namespace\",service=~\"$component_name\"})",
           "instant": false,
           "legendFormat": "ActiveBrokerCount",
           "range": true,
@@ -205,7 +205,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(kafka_controller_kafkacontroller_value{name=\"FencedBrokerCount\",namespace=~\"$namespace\",app=~\"$component_name\",platform_confluent_io_type=~\"$controller_type\"})",
+          "expr": "sum(kafka_controller_kafkacontroller_value{name=\"FencedBrokerCount\",namespace=~\"$namespace\",service=~\"$component_name\"})",
           "instant": false,
           "interval": "",
           "legendFormat": "FencedBrokerCount",
@@ -271,7 +271,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "kafka_controller_kafkacontroller_value{name=\"GlobalTopicCount\",namespace=~\"$namespace\",app=~\"$component_name\",platform_confluent_io_type=~\"$controller_type\"}",
+          "expr": "kafka_controller_kafkacontroller_value{name=\"GlobalTopicCount\",namespace=~\"$namespace\",service=~\"$component_name\"}",
           "format": "table",
           "instant": false,
           "legendFormat": "{{pod}}",
@@ -337,7 +337,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "kafka_controller_kafkacontroller_value{name=\"GlobalPartitionCount\",namespace=~\"$namespace\",app=~\"$component_name\",platform_confluent_io_type=~\"$controller_type\"}",
+          "expr": "kafka_controller_kafkacontroller_value{name=\"GlobalPartitionCount\",namespace=~\"$namespace\",service=~\"$component_name\"}",
           "format": "table",
           "instant": false,
           "legendFormat": "{{pod}}",
@@ -403,7 +403,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum(sum(kafka_controller_kafkacontroller_value{name=\"ActiveControllerCount\",namespace=~\"$namespace\",app=~\"$component_name\",platform_confluent_io_type=~\"$controller_type\"}))",
+          "expr": "sum(sum(kafka_controller_kafkacontroller_value{name=\"ActiveControllerCount\",namespace=~\"$namespace\",service=~\"$component_name\"}))",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -499,7 +499,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "count(kafka_controller_kafkacontroller_value{name=\"ActiveBrokerCount\",namespace=~\"$namespace\",app=~\"$component_name\",platform_confluent_io_type=~\"$controller_type\"})",
+          "expr": "count(kafka_controller_kafkacontroller_value{name=\"ActiveBrokerCount\",namespace=~\"$namespace\",service=~\"$component_name\"})",
           "instant": false,
           "legendFormat": "ActiveBrokerCount",
           "range": true,
@@ -620,7 +620,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(kafka_controller_kafkacontroller_value{name=\"FencedBrokerCount\",namespace=~\"$namespace\",app=~\"$component_name\",platform_confluent_io_type=~\"$controller_type\"})",
+          "expr": "sum(kafka_controller_kafkacontroller_value{name=\"FencedBrokerCount\",namespace=~\"$namespace\",service=~\"$component_name\"})",
           "instant": false,
           "interval": "",
           "legendFormat": "FencedBrokerCount",
@@ -682,7 +682,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "kafka_controller_kafkacontroller_value{name=\"LastCommittedRecordOffset\",namespace=~\"$namespace\",app=~\"$component_name\",platform_confluent_io_type=~\"$controller_type\"}",
+          "expr": "kafka_controller_kafkacontroller_value{name=\"LastCommittedRecordOffset\",namespace=~\"$namespace\",service=~\"$component_name\"}",
           "instant": false,
           "legendFormat": "{{pod}}",
           "range": true,
@@ -743,7 +743,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "kafka_controller_kafkacontroller_value{name=\"LastAppliedRecordOffset\",namespace=~\"$namespace\",app=~\"$component_name\",platform_confluent_io_type=~\"$controller_type\"}",
+          "expr": "kafka_controller_kafkacontroller_value{name=\"LastAppliedRecordOffset\",namespace=~\"$namespace\",service=~\"$component_name\"}",
           "instant": false,
           "legendFormat": "{{pod}}",
           "range": true,
@@ -838,7 +838,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "kafka_controller_kafkacontroller_value{name=\"LastAppliedRecordLagMs\",namespace=~\"$namespace\",app=~\"$component_name\",platform_confluent_io_type=~\"$controller_type\"}",
+          "expr": "kafka_controller_kafkacontroller_value{name=\"LastAppliedRecordLagMs\",namespace=~\"$namespace\",service=~\"$component_name\"}",
           "instant": false,
           "legendFormat": "{{pod}}",
           "range": true,
@@ -903,7 +903,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "\nkafka_controller_kafkacontroller_value{name=\"LastAppliedRecordTimestamp\",namespace=~\"$namespace\",app=~\"$component_name\",platform_confluent_io_type=~\"$controller_type\"}",
+          "expr": "\nkafka_controller_kafkacontroller_value{name=\"LastAppliedRecordTimestamp\",namespace=~\"$namespace\",service=~\"$component_name\"}",
           "format": "heatmap",
           "instant": false,
           "legendFormat": "",
@@ -979,7 +979,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
-              "expr": "io_confluent_caas_volumemetrics_used{app=~\"$component_name\", platform_confluent_io_type=~\"$controller_type\",namespace=~\"$namespace\"}",
+              "expr": "io_confluent_caas_volumemetrics_used{namespace=~\"$namespace\",service=~\"$component_name\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -992,7 +992,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
-              "expr": "io_confluent_caas_volumemetrics_total{app=~\"$component_name\", platform_confluent_io_type=~\"$controller_type\",namespace=~\"$namespace\"}",
+              "expr": "io_confluent_caas_volumemetrics_total{namespace=~\"$namespace\",service=~\"$component_name\"}",
               "hide": false,
               "instant": false,
               "interval": "",
@@ -1085,7 +1085,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
-              "expr": "io_confluent_caas_volumemetrics_percentused{app=~\"$component_name\", platform_confluent_io_type=~\"$controller_type\",namespace=~\"$namespace\"}",
+              "expr": "io_confluent_caas_volumemetrics_percentused{namespace=~\"$namespace\",service=~\"$component_name\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -1177,7 +1177,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
-              "expr": "io_confluent_caas_volumemetrics_percentavailable{app=~\"$component_name\", platform_confluent_io_type=~\"$controller_type\",namespace=~\"$namespace\"}",
+              "expr": "io_confluent_caas_volumemetrics_percentavailable{namespace=~\"$namespace\",service=~\"$component_name\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -1501,7 +1501,7 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "label_values({namespace=\"$namespace\", confluent_platform=\"true\"}, app)",
+        "definition": "label_values(_service)",
         "hide": 0,
         "includeAll": true,
         "label": "Component",
@@ -1509,7 +1509,7 @@
         "name": "component_name",
         "options": [],
         "query": {
-          "query": "label_values({namespace=\"$namespace\", confluent_platform=\"true\"}, app)",
+          "query": "label_values(_service)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
